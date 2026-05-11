@@ -1,0 +1,17 @@
+iconic_trades:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "./data/only_trade.duckdb"
+      schema: main
+      threads: 4
+      attach:
+        - path: "/home/pdip/Downloads/only_trade.duckdb"
+          alias: domain
+          read_only: true
+    prod:
+      type: duckdb
+      path: "/home/pdip/Downloads/only_trade.duckdb"
+      schema: main
+      threads: 4
