@@ -1,0 +1,63 @@
+# Fabric profile — 5 targets.
+#
+# - dev:           vd_studio_oauth, writes to the DOMAIN lakehouse (used by CI for design-phase validation against the live domain).
+# - ephemeral:     vd_studio_oauth, writes to the EPHEMERAL lakehouse (used by the agent during this intent — local sandbox iteration).
+# - ephemeral_notebook: fabric_notebook, writes to the EPHEMERAL lakehouse (used by `validating-fabric-notebook` — same auth as production, but writes to the sandbox lakehouse so validation does not touch domain).
+# - dep:           fabric_notebook, writes to the DOMAIN lakehouse (used by the deployment notebook during PR validation in Fabric runtime when targeting domain — rare).
+# - prod:          fabric_notebook, writes to the DOMAIN lakehouse (used by scheduled production runs in Fabric runtime).
+#
+# Every dynamic value uses env_var(...) so the same file runs in CI / dep / prod without modification.
+# Tokens (VD_STUDIO_USER_ID, FAB_TOKEN*) are pre-hook injected at command time — do not put them here.
+
+delta_bytes_sales:
+  target: ephemeral
+  outputs:
+
+    dev:
+      type: fabricspark
+      method: livy
+      authentication: vd_studio_oauth
+      workspaceid: "{{ env_var('DOMAIN_WORKSPACE_ID') }}"
+      lakehouse: "{{ env_var('DOMAIN_LAKEHOUSE_NAME') }}"
+      lakehouseid: "{{ env_var('DOMAIN_LAKEHOUSE_ID') }}"
+      schema: "{{ env_var('DOMAIN_SCHEMA') }}"
+      vdstudio_oauth_endpoint_url: "{{ env_var('VD_STUDIO_TOKEN_URL') }}"
+
+    ephemeral:
+      type: fabricspark
+      method: livy
+      authentication: vd_studio_oauth
+      workspaceid: "{{ env_var('EPHEMERAL_WORKSPACE_ID') }}"
+      lakehouse: "{{ env_var('EPHEMERAL_LAKEHOUSE_NAME') }}"
+      lakehouseid: "{{ env_var('EPHEMERAL_LAKEHOUSE_ID') }}"
+      schema: "{{ env_var('EPHEMERAL_SCHEMA') }}"
+      vdstudio_oauth_endpoint_url: "{{ env_var('VD_STUDIO_TOKEN_URL') }}"
+      spark_config:
+        name: delta_bytes_sales_ephemeral
+
+    ephemeral_notebook:
+      type: fabricspark
+      method: livy
+      authentication: fabric_notebook
+      workspaceid: "{{ env_var('EPHEMERAL_WORKSPACE_ID') }}"
+      lakehouse: "{{ env_var('EPHEMERAL_LAKEHOUSE_NAME') }}"
+      lakehouseid: "{{ env_var('EPHEMERAL_LAKEHOUSE_ID') }}"
+      schema: "{{ env_var('EPHEMERAL_SCHEMA') }}"
+
+    dep:
+      type: fabricspark
+      method: livy
+      authentication: fabric_notebook
+      workspaceid: "{{ env_var('DOMAIN_WORKSPACE_ID') }}"
+      lakehouse: "{{ env_var('DOMAIN_LAKEHOUSE_NAME') }}"
+      lakehouseid: "{{ env_var('DOMAIN_LAKEHOUSE_ID') }}"
+      schema: "{{ env_var('DOMAIN_SCHEMA') }}"
+
+    prod:
+      type: fabricspark
+      method: livy
+      authentication: fabric_notebook
+      workspaceid: "{{ env_var('DOMAIN_WORKSPACE_ID') }}"
+      lakehouse: "{{ env_var('DOMAIN_LAKEHOUSE_NAME') }}"
+      lakehouseid: "{{ env_var('DOMAIN_LAKEHOUSE_ID') }}"
+      schema: "{{ env_var('DOMAIN_SCHEMA') }}"

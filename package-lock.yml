@@ -1,0 +1,17 @@
+packages:
+  - name: dbt_utils
+    package: dbt-labs/dbt_utils
+    version: 1.3.3
+  - name: elementary
+    package: elementary-data/elementary
+    version: 0.23.1
+  - name: dbt_expectations
+    package: calogica/dbt_expectations
+    version: 0.10.4
+  - git: https://github.com/accelerate-data/vd-dbt-elementary-fabricspark.git
+    name: elementary_fabricspark
+    revision: c5b0af7740dee272b43bacd81cff36ae3cc9567c
+  - name: dbt_date
+    package: calogica/dbt_date
+    version: 0.10.1
+sha1_hash: aec3ca65c317266a182279cebc725f9029911b0b

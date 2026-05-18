@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: src_salescloud
+    description: "Salesforce Sales Cloud raw data"
+    database: "{{ env_var('DOMAIN_LAKEHOUSE_NAME') }}"
+    schema: "{{ env_var('DOMAIN_SCHEMA') }}"
+    tables: []

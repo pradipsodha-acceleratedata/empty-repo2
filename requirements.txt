@@ -1,0 +1,5 @@
+dbt-core
+vd-dbt-fabricspark
+dlt
+pandas
+tabulate
