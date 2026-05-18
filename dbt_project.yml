@@ -1,0 +1,35 @@
+name: 'delta_bytes_sales'
+version: '1.0.0'
+config-version: 2
+
+profile: 'delta_bytes_sales'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Elementary on Fabric Spark requires the team's adapter-compatible dispatch.
+# vd-dbt-elementary-fabricspark provides the macro overrides; this dispatch
+# routes elementary's macro calls to that package first, falling back to the
+# upstream elementary package.
+dispatch:
+  - macro_namespace: elementary
+    search_order:
+      - vd_dbt_elementary_fabricspark
+      - elementary
+
+models:
+  delta_bytes_sales:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: ephemeral
+    marts:
+      +materialized: table
