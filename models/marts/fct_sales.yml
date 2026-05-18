@@ -1,0 +1,150 @@
+version: 2
+
+models:
+  - name: fct_sales
+    description: >
+      One row per sales opportunity. Tracks sales pipeline, revenue forecasting,
+      and closed deals for business analysis.
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: opportunity_id
+        description: Primary key. Unique identifier for the opportunity (Salesforce Opportunity.Id).
+        data_type: varchar
+        tests:
+          - not_null
+          - unique
+
+      - name: opportunity_name
+        description: Name of the sales opportunity.
+        data_type: varchar
+        tests:
+          - not_null
+
+      - name: account_id
+        description: FK to dim_account.account_id. The account associated with this opportunity.
+        data_type: varchar
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_account')
+              field: account_id
+
+      - name: amount
+        description: Total opportunity value in USD.
+        data_type: float
+
+      - name: close_date
+        description: Expected or actual close date of the opportunity.
+        data_type: varchar
+        tests:
+          - not_null
+
+      - name: stage_name
+        description: Current sales stage of the opportunity (e.g., Prospecting, Value Proposition, Closed Won).
+        data_type: varchar
+        tests:
+          - not_null
+
+      - name: probability_percent
+        description: Probability of winning the opportunity (0-100).
+        data_type: int
+
+      - name: forecast_category
+        description: Forecast category (e.g., Pipeline, Best Case, Closed).
+        data_type: varchar
+
+      - name: expected_revenue
+        description: Expected revenue calculated as amount * probability.
+        data_type: float
+
+      - name: is_closed
+        description: Flag indicating if the opportunity is closed (won or lost).
+        data_type: boolean
+        tests:
+          - not_null
+
+      - name: is_won
+        description: Flag indicating if the opportunity was won (true only if closed and won).
+        data_type: boolean
+        tests:
+          - not_null
+
+      - name: is_closed_won
+        description: Derived flag indicating if the opportunity is both closed AND won.
+        data_type: boolean
+        tests:
+          - not_null
+
+      - name: opportunity_type
+        description: Type of opportunity (e.g., New Business, Existing Business).
+        data_type: varchar
+
+      - name: lead_source
+        description: Source of the lead (e.g., Cold Call, Referral, Trade Show).
+        data_type: varchar
+
+      - name: campaign_id
+        description: Salesforce Campaign ID associated with this opportunity.
+        data_type: varchar
+
+      - name: contact_id
+        description: Salesforce Contact ID of the primary contact for this opportunity.
+        data_type: varchar
+
+      - name: pricebook_id
+        description: Salesforce Pricebook ID used for this opportunity.
+        data_type: varchar
+
+      - name: owner_id
+        description: Salesforce User ID of the opportunity owner (sales rep).
+        data_type: varchar
+        tests:
+          - not_null
+
+      - name: opportunity_description
+        description: Free-text description of the opportunity.
+        data_type: varchar
+
+      - name: next_step
+        description: Next step in the sales process.
+        data_type: varchar
+
+      - name: has_line_items
+        description: Flag indicating if the opportunity has associated line items.
+        data_type: boolean
+
+      - name: currency_code
+        description: ISO currency code for this opportunity (e.g., USD, EUR).
+        data_type: varchar
+        tests:
+          - not_null
+
+      - name: created_date
+        description: Timestamp when the opportunity was created in Salesforce.
+        data_type: timestamp
+        tests:
+          - not_null
+
+      - name: last_modified_date
+        description: Timestamp when the opportunity was last modified in Salesforce.
+        data_type: timestamp
+        tests:
+          - not_null
+
+      - name: last_stage_change_date
+        description: Timestamp when the opportunity stage was last changed.
+        data_type: timestamp
+
+      - name: _loaded_at
+        description: Timestamp when this row was loaded by dbt.
+        data_type: timestamp
+        tests:
+          - not_null
+
+      - name: _dbt_invocation_id
+        description: dbt invocation UUID for the run that produced this row.
+        data_type: varchar
+        tests:
+          - not_null
