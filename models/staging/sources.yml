@@ -4,5 +4,10 @@ sources:
   - name: src_salescloud
     description: "Salesforce Sales Cloud raw data"
     database: "{{ env_var('DOMAIN_LAKEHOUSE_NAME') }}"
-    schema: "{{ env_var('DOMAIN_SCHEMA') }}"
-    tables: []
+    schema: src_salescloud
+    tables:
+      - name: account
+        description: Salesforce Account object (customers and prospects)
+
+      - name: opportunity
+        description: Salesforce Opportunity object (sales pipeline)

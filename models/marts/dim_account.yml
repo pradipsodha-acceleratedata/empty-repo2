@@ -1,0 +1,151 @@
+version: 2
+
+models:
+  - name: dim_account
+    description: >
+      One row per account. Provides customer and account attributes for sales
+      analysis. Type 1 slowly changing dimension (current state only).
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: account_id
+        description: Primary key. Unique identifier for the account (Salesforce Account.Id).
+        data_type: varchar
+        tests:
+          - not_null
+          - unique
+
+      - name: account_name
+        description: Name of the account/customer.
+        data_type: varchar
+        tests:
+          - not_null
+
+      - name: account_type
+        description: Type of account (e.g., Customer, Partner, Prospect).
+        data_type: varchar
+
+      - name: industry
+        description: Industry classification of the account.
+        data_type: varchar
+
+      - name: annual_revenue
+        description: Annual revenue of the account in USD.
+        data_type: float
+
+      - name: employee_count
+        description: Number of employees at the account.
+        data_type: int
+
+      - name: phone
+        description: Primary phone number for the account.
+        data_type: varchar
+
+      - name: website
+        description: Account website URL.
+        data_type: varchar
+
+      - name: account_number
+        description: External account number or customer ID.
+        data_type: varchar
+
+      - name: account_source
+        description: Source from which the account was acquired (e.g., Trade Show, Referral).
+        data_type: varchar
+
+      - name: rating
+        description: Rating of the account (e.g., Hot, Warm, Cold).
+        data_type: varchar
+
+      - name: ownership
+        description: Ownership structure of the account (e.g., Public, Private, Subsidiary).
+        data_type: varchar
+
+      - name: billing_street
+        description: Billing address street.
+        data_type: varchar
+
+      - name: billing_city
+        description: Billing address city.
+        data_type: varchar
+
+      - name: billing_state
+        description: Billing address state/province.
+        data_type: varchar
+
+      - name: billing_postal_code
+        description: Billing address postal code.
+        data_type: varchar
+
+      - name: billing_country
+        description: Billing address country.
+        data_type: varchar
+
+      - name: shipping_street
+        description: Shipping address street.
+        data_type: varchar
+
+      - name: shipping_city
+        description: Shipping address city.
+        data_type: varchar
+
+      - name: shipping_state
+        description: Shipping address state/province.
+        data_type: varchar
+
+      - name: shipping_postal_code
+        description: Shipping address postal code.
+        data_type: varchar
+
+      - name: shipping_country
+        description: Shipping address country.
+        data_type: varchar
+
+      - name: account_description
+        description: Free-text description of the account.
+        data_type: varchar
+
+      - name: owner_id
+        description: Salesforce User ID of the account owner (sales rep).
+        data_type: varchar
+
+      - name: parent_account_id
+        description: Salesforce Account ID of the parent account (for hierarchical relationships).
+        data_type: varchar
+
+      - name: is_customer_portal
+        description: Flag indicating if the account has customer portal access.
+        data_type: boolean
+
+      - name: is_partner
+        description: Flag indicating if the account is a partner.
+        data_type: boolean
+
+      - name: created_date
+        description: Timestamp when the account was created in Salesforce.
+        data_type: timestamp
+        tests:
+          - not_null
+
+      - name: last_modified_date
+        description: Timestamp when the account was last modified in Salesforce.
+        data_type: timestamp
+        tests:
+          - not_null
+
+      - name: last_activity_date
+        description: Date of the last logged activity for this account.
+        data_type: date
+
+      - name: _loaded_at
+        description: Timestamp when this row was loaded by dbt.
+        data_type: timestamp
+        tests:
+          - not_null
+
+      - name: _dbt_invocation_id
+        description: dbt invocation UUID for the run that produced this row.
+        data_type: varchar
+        tests:
+          - not_null
