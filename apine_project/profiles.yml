@@ -1,0 +1,7 @@
+apine_project:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: '../data/apine.duckdb'
+      threads: 1
