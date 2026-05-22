@@ -1,0 +1,10 @@
+apline2:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ./target/dev.duckdb
+      threads: 1
+      attach:
+        - path: ./data/apline2.duckdb
+          alias: domain_db
