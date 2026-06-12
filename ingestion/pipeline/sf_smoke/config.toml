@@ -1,0 +1,2 @@
+[pipeline]
+connection = "ss_salesforce"

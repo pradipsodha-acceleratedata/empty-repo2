@@ -1,0 +1,16 @@
+[providers.azure_key_vault]
+kind = "azure_key_vault"
+vault_url = "https://data-eng-key-vault.vault.azure.net/"
+key_transform = "azure_key_vault"
+
+[sources.salesforce]
+
+[sources.salesforce_source]
+
+[studio.sources.ss_salesforce]
+connector = "salesforce"
+connector_source = "dlt-verified"
+entry_point = "salesforce_source"
+schema = "src_ss_salesforce"
+auth_method = "security_token"
+created_at = "2026-06-11T17:39:55.343Z"
