@@ -1,0 +1,3 @@
+dbt-core
+dbt-fabricspark
+vdstudio-dbtfabriclake-cred

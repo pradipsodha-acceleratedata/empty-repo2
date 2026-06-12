@@ -1,1 +1,0 @@
--r ../../connection/ss_salesforce/requirements.txt

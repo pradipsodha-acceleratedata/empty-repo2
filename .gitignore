@@ -27,4 +27,4 @@ vd-domain.yml
 
 # Local data / runtime outputs
 data/
-ingestion/.dlt/destination.ephemeral.toml
+ingestion/connections/default_destination/.dlt/config.ephemeral.toml
