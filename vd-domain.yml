@@ -1,0 +1,13 @@
+name: avent domain
+slug: avent-domain
+destination:
+  type: fabric
+  defaultSchema: dbo
+prodManifestPath: prod-manifest
+repository:
+  url: https://github.com/pradipsodha-acceleratedata/empty-repo2.git
+  fullName: pradipsodha-acceleratedata/empty-repo2
+  organization: pradipsodha-acceleratedata
+  name: empty-repo2
+  installationId: 0
+  defaultBranch: main
