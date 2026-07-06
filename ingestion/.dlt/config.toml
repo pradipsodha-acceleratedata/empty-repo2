@@ -8,3 +8,8 @@ entry_point = "salesforce_source"
 [destination.filesystem]
 workspace_id = "30723ec0-524d-4edf-92aa-1119a39e31dd"
 lakehouse_id = "bd0d777d-bc59-41f9-bcc2-3709be798cc2"
+
+[sources.ss_salesforce]
+connector = "salesforce"
+connector_source = "dlt-verified"
+entry_point = "salesforce_source"
